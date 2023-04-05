@@ -20,6 +20,32 @@ const getData = (req, res, entity, id) => {
   }
 }
 
+const postData = (req, res, entity) => {
+  var missingKeyCount = 0;
+  const userKeys = ['first_name', 'last_name', 'username', 'password']
+  const itemKeys = ['user_id', 'item_name', 'description', 'quantity']
+  if (entity === 'user') {
+    userKeys.forEach(key => {
+      if (!Object.keys(req.body).includes(key)) missingKeyCount++;
+    });
+  } else {
+    itemKeys.forEach(key => {
+      if (!Object.keys(req.body).includes(key)) missingKeyCount++;
+    });
+  }
+  if (missingKeyCount === 0) {
+    return knex(`${entity}_table`)
+    .insert(req.body)
+    .then(() => {
+      res.status(201).send(`added new ${entity}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(`error adding new ${entity}`)
+    })
+  } else {
+    res.send(`error adding new ${entity}, missing object properties in request body`)
+  }
+}
 
-
-module.exports = { knex, getRoot, getData };
+module.exports = { knex, getRoot, getData, postData };
