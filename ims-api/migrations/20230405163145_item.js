@@ -3,10 +3,10 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('item', table => {
+  return knex.schema.createTable('item_table', table => {
     table.increments('id');
     table.integer('user_id');
-    table.foreign('user_id').references("id").inTable("user");
+    table.foreign('user_id').references("id").inTable("user_table").onDelete('CASCADE');
     table.string('item_name');
     table.string('description');
     table.string('quantity')
@@ -24,6 +24,6 @@ exports.down = function(knex) {
         table.dropColumn("user_id");
     })
     .then(() => {
-        return knex.schema.dropTableIfExists('item');
+        return knex.schema.dropTableIfExists('item_table');
     })
 };

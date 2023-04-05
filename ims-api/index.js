@@ -13,4 +13,8 @@ app.get('/', function (req, res) {
   getRoot(req, res);
 })
 
+app.get('/users', function (req, res) {
+  getUsers(req, res);
+})
+
 app.listen(port, () => {console.log(`server listening on port ${port}`)})
