@@ -1,6 +1,10 @@
+import { NavBar } from "../NavBar/NavBar"
 
 export const ItemDetails = () => {
   return(
-    <div>Item Details</div>
+    <div>
+      <NavBar />
+      Item Details
+    </div>
   )
 }

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,14 +7,15 @@ import Button from 'react-bootstrap/Button'
 import './NavBar.css';
 
 export const NavBar = () => {
+  const navigate = useNavigate();
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">MY IMS</Navbar.Brand>
+        <Navbar.Brand href="/">MY IMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="/Item-Details">ItemDetails</Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -24,7 +26,7 @@ export const NavBar = () => {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Button variant='secondary'>Login</Button>
+            <Button variant='secondary' onClick={() => navigate('/Login')}>Login</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -1,6 +1,8 @@
 
 export const AccountCreate = () => {
   return(
-    <div>Account Create</div>
+    <div>
+      Account Create
+    </div>
   )
 }

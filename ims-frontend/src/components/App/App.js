@@ -1,5 +1,4 @@
 import './App.css';
-import { NavBar } from '../NavBar/NavBar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from '../Home/Home';
 import { AccountCreate } from '../AccountCreate/AccountCreate';
@@ -9,7 +8,6 @@ import { ItemDetails } from '../ItemDetails/ItemDetails';
 function App() {
   return (
     <div className="App">
-      <NavBar />
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
