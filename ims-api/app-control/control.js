@@ -48,4 +48,42 @@ const postData = (req, res, entity) => {
   }
 }
 
-module.exports = { knex, getRoot, getData, postData };
+const patchData = (req, res, entity, id) => {
+  var nonKeyMatchCount = 0;
+  const userKeys = ['first_name', 'last_name', 'username', 'password']
+  const itemKeys = ['user_id', 'item_name', 'description', 'quantity']
+  if (entity === 'user') {
+    Object.keys(req.body).forEach(key => {
+      if (!userKeys.includes(key)) nonKeyMatchCount++;
+    });
+  } else {
+    Object.keys(req.body).forEach(key => {
+      if (!itemKeys.includes(key)) nonKeyMatchCount++;
+    });
+  }
+  if (nonKeyMatchCount === 0) {
+    knex(`${entity}_table`)
+    .where("id", id)
+    .modify((queryBuilder) => queryBuilder.update(req.body))
+    .then(() => res.status(202).send(`Updated ${entity} data`))
+    .catch((err) => {
+        console.log(err)
+        res.send(`Error updating ${entity} data`)
+    })
+  } else {
+    res.send(`error updating ${entity}/${id}, object property missmatch in request body`)
+  }
+}
+
+const deleteData = (req, res, entity, id) => {
+  knex(`${entity}_table`)
+  .where("id", id)
+  .del()
+  .then(() => res.status(200).send(`Removed ${entity}/${id}`))
+  .catch((err) => {
+    console.log(err)
+    res.send(`Error removing ${entity}/${id}`)
+  })
+}
+
+module.exports = { knex, getRoot, getData, postData, patchData, deleteData };
