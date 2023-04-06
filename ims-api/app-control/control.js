@@ -1,4 +1,5 @@
-
+const bcrypt = require('bcryptjs');
+const saltRounds = 10;
 const knex = require("knex")(require("../knexfile.js")[process.env.NODE_ENV || "development"]);
 
 const getRoot = (req, res) => {
@@ -6,17 +7,32 @@ const getRoot = (req, res) => {
 }
 
 const getData = (req, res, entity, id) => {
-  if (id) {
-    knex
-    .select('*')
-    .where({id: id})
-    .from(`${entity}_table`)
-    .then(data => res.status(200).send(data))
+  if (entity === 'user') {
+    if (id) {
+      knex
+      .select('username')
+      .where({id: id})
+      .from(`${entity}_table`)
+      .then(data => res.status(200).send(data))
+    } else {
+      knex
+      .select('username')
+      .from(`${entity}_table`)
+      .then(data => res.status(200).send(data))
+    }
   } else {
-    knex
-    .select('*')
-    .from(`${entity}_table`)
-    .then(data => res.status(200).send(data))
+    if (id) {
+      knex
+      .select('*')
+      .where({id: id})
+      .from(`${entity}_table`)
+      .then(data => res.status(200).send(data))
+    } else {
+      knex
+      .select('*')
+      .from(`${entity}_table`)
+      .then(data => res.status(200).send(data))
+    }
   }
 }
 
@@ -37,14 +53,14 @@ const postData = (req, res, entity) => {
     return knex(`${entity}_table`)
     .insert(req.body)
     .then(() => {
-      res.status(201).send(`added new ${entity}`);
+      res.status(201).send({response: `added new ${entity}`});
     })
     .catch((err) => {
       console.log(err);
-      res.send(`error adding new ${entity}`)
+      res.send({response: `error adding new ${entity}`})
     })
   } else {
-    res.send(`error adding new ${entity}, missing object properties in request body`)
+    res.send({response: `error adding new ${entity}, missing object properties in request body`})
   }
 }
 
@@ -86,4 +102,32 @@ const deleteData = (req, res, entity, id) => {
   })
 }
 
-module.exports = { knex, getRoot, getData, postData, patchData, deleteData };
+const postLogin = (req, res) => {
+  knex
+    .select('*')
+    .where({username: req.body.username})
+    .from(`user_table`)
+    .then(data => {
+      if (data.length < 1) {
+        res.send({err: 'user not found'})
+      } else {
+        res.status(200).send(data[0])
+      }
+    })
+}
+
+const postUsername = (req, res) => {
+  knex
+    .select('*')
+    .where({username: req.body.username})
+    .from('user_table')
+    .then(data => {
+      if (data.length < 1) {
+        res.send({avaliable: true})
+      } else {
+        res.send({avaliable: false})
+      }
+    })
+}
+
+module.exports = { knex, getRoot, getData, postData, patchData, deleteData, postLogin, postUsername };

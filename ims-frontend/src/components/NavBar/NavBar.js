@@ -5,9 +5,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button'
 import './NavBar.css';
+import { useContext } from "react";
+import { GlobalContext } from '../App/App';
 
 export const NavBar = () => {
   const navigate = useNavigate();
+
+  const { loginUser, setLoginUser } = useContext(GlobalContext);
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -26,7 +31,9 @@ export const NavBar = () => {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Button variant='secondary' onClick={() => navigate('/Login')}>Login</Button>
+            {loginUser.username ? 
+              <div className="userLogin">Welcome {loginUser.first_name} <Button variant='secondary' onClick={() => setLoginUser({})}>Logout</Button></div> :
+              <Button variant='secondary' onClick={() => navigate('/Login')}>Login</Button>}
           </Nav>
         </Navbar.Collapse>
       </Container>

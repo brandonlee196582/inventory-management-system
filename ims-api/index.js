@@ -4,7 +4,7 @@ const cors = require('cors');
 require("dotenv").config();
 const port = 3001;
 
-const { knex, getRoot, getData, postData, patchData, deleteData } = require('./app-control/control')
+const { knex, getRoot, getData, postData, patchData, deleteData, postLogin, postUsername } = require('./app-control/control')
 
 app.use(express.json());
 app.use(cors());
@@ -31,14 +31,19 @@ app.get('/:entity/:id', (req, res) => {
 app.post("/:entity", async (req, res) => {
   var { entity } = req.params;
   await req;
-  entity === 'user' || entity === 'item' ? postData(req, res, `${entity}`) : res.status(204).send(`Unable to post data for ${entity}/${id}, table not found.`)
+  entity === 'user' || entity === 'item' ? postData(req, res, `${entity}`) :
+  entity === 'Login' ? postLogin(req, res) :
+  entity === 'Username' ? postUsername(req, res) :
+  res.status(204).send(`Unable to post data for ${entity}/${id}, table not found.`)
 })
 
 // update an entity's data within a passed in table by a passed in id
+// removed user from patch for security
 app.patch("/:entity/:id", async (req, res) => {
   var { entity, id } = req.params;
   await req;
-  entity === 'user' || entity === 'item' ? patchData(req, res, `${entity}`, id) : res.status(204).send(`Unable to update data for ${entity}/${id}, table not found.`)
+  // entity === 'user' || entity === 'item' ? patchData(req, res, `${entity}`, id) : res.status(204).send(`Unable to update data for ${entity}/${id}, table not found.`)
+  entity === 'item' ? patchData(req, res, `${entity}`, id) : res.status(204).send(`Unable to update data for ${entity}/${id}, table not found.`)
 })
 
 // delete an entity from a passed in table by a passed in id

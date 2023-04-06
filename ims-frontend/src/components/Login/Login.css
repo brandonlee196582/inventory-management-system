@@ -26,3 +26,17 @@
 .formLink {
   color: #4083be;
 }
+
+.loginFail {
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  color: white;
+  background-color: #292b2c;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.newHereText {
+  color: white;
+}

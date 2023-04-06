@@ -4,10 +4,17 @@ import { Home } from '../Home/Home';
 import { AccountCreate } from '../AccountCreate/AccountCreate';
 import { Login } from '../Login/Login';
 import { ItemDetails } from '../ItemDetails/ItemDetails';
+import { useState, createContext } from 'react';
+
+export const GlobalContext = createContext();
 
 function App() {
+
+  const [loginUser, setLoginUser] = useState({});
+
   return (
-    <div className="App">
+    <GlobalContext.Provider value={{loginUser, setLoginUser}}>
+      <div className="App">
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -17,6 +24,7 @@ function App() {
         </Routes>
       </Router>
     </div>
+    </GlobalContext.Provider>
   );
 }
 
