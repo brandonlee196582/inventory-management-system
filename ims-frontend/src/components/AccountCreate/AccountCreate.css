@@ -1,0 +1,28 @@
+.loginDiv {
+  width: 500px;
+  margin-left: -250px;
+  height: 300px;
+  margin-top: -150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: white;
+  background-color: #292b2c;
+  border-radius: 5px;
+}
+
+.formTextBox {
+  width: 440px;
+  margin-left: 30px;
+}
+
+.formButton {
+  position: relative;
+  left: 265px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.formLink {
+  color: #4083be;
+}
