@@ -41,7 +41,7 @@ Create a postgres database name imsdb to be used later in the setup. This databa
             - DB_CONN_STRING=”postgres://{replace with your username}:{your postgres password}@app-ims-db:5432/imsdb
 
 # Run project:
-    After configuration enter the command below withing the root folder:
+    After configuration enter the command below within the root folder:
         docker-compose up
 
 # Frontend access:
