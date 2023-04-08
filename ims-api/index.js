@@ -53,4 +53,4 @@ app.delete("/:entity/:id", async (req, res) => {
   entity === 'user' || entity === 'item' ? deleteData(req, res, `${entity}`, id) : res.status(204).send(`Unable to remove ${entity}/${id}, table not found.`)
 })
 
-app.listen(port, () => {console.log(`server listening on port ${port}`)})
+app.listen(port, () => {console.log(`server gg listening on port ${port}`)})

@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+  app-ims-db:
+    image: postgres
+    container_name: app-ims-db
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER={replace with username}
+      - POSTGRES_PASSWORD={replace with postgres password}
+    ports:
+      - 5432:5432
+    volumes:
+      - {replace with path to local postgres data}:/var/lib/postgresql/data
+    networks:
+      - app-net
+
+  app-ims-api:
+    build: ./ims-api
+    container_name: app-ims-api
+    ports:
+      - 3001:3001
+    networks:
+      - app-net
+    environment:
+      - DB_CONN_STRING=postgres://{replace with your username}:{your postgres password}@app-ims-db:5432/imsdb
+    depends_on:
+      - app-ims-db
+
+  app-ims-frontend:
+    build: ./ims-ui
+    container_name: app-ims-frontend
+    ports:
+      - 3000:3000
+    networks:
+      - app-net
+    depends_on:
+      - app-ims-api
+
+networks:
+  app-net:
+    driver: bridge
