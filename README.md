@@ -79,4 +79,8 @@ Create a postgres database name imsdb to be used later in the setup. This databa
                 deletes an item by its id
             /user/:id
                 deletes a user by its id
+# Migrating and seeding dummy data
+    navigate to the /ims-api directory and run the commands below
+        npx knex migrate:latest
+        mpx knex seed:run
 
