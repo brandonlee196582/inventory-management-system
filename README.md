@@ -80,6 +80,7 @@ Create a postgres database name imsdb to be used later in the setup. This databa
             /user/:id
                 deletes a user by its id
 # Migrating and seeding dummy data
+    !! These actions can only be completed after the database is created and the api is running !!
     navigate to the /ims-api directory and run the commands below
         npx knex migrate:latest
         mpx knex seed:run
