@@ -83,5 +83,5 @@ Create a postgres database name imsdb to be used later in the setup. This databa
     !! These actions can only be completed after the database is created and the api is running !!
     navigate to the /ims-api directory and run the commands below
         npx knex migrate:latest
-        mpx knex seed:run
+        npx knex seed:run
 
