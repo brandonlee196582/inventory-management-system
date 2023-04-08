@@ -13,6 +13,12 @@ export const NavBar = () => {
 
   const { loginUser, setLoginUser } = useContext(GlobalContext);
 
+  const userLogout = () => {
+    setLoginUser({})
+    navigate('/')
+    window.location.reload(false)
+  }
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -20,20 +26,14 @@ export const NavBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/Item-Details">ItemDetails</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
           </Nav>
           <Nav>
             {loginUser.username ? 
-              <div className="userLogin">Welcome {loginUser.first_name} <Button variant='secondary' onClick={() => setLoginUser({})}>Logout</Button></div> :
-              <Button variant='secondary' onClick={() => navigate('/Login')}>Login</Button>}
+              <div className="userLogin"><span className="welcomeText">Welcome {loginUser.first_name}</span><Button variant='secondary' onClick={() => userLogout()}>Logout</Button></div> :
+              <div>
+                <a className="formLink" href="/Create-Account">Create an account</a>{`' ' ' '`}
+                <Button variant='secondary' onClick={() => navigate('/Login')}>Login</Button>
+              </div>}
           </Nav>
         </Navbar.Collapse>
       </Container>

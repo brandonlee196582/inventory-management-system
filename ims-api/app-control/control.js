@@ -10,13 +10,13 @@ const getData = (req, res, entity, id) => {
   if (entity === 'user') {
     if (id) {
       knex
-      .select('username')
+      .select('id', 'username')
       .where({id: id})
       .from(`${entity}_table`)
       .then(data => res.status(200).send(data))
     } else {
       knex
-      .select('username')
+      .select('id', 'username')
       .from(`${entity}_table`)
       .then(data => res.status(200).send(data))
     }
