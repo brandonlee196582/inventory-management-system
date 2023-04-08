@@ -3,33 +3,33 @@
 # Purpose
  This project offers a possible inventory management solution. Without logging in, this system renders a home page containing a list of items pulled from a database and considers this user to be a guest. 
 
-Guest Actions:
+# Guest Actions:
 The guest user can then click an item from the list to display the item’s details. The details page contains a button that then allows you to return to the home page. The guest user can also filter the results by typing in the “Item Name” text box, clicking the “Manager” dropdown, or by typing in the “Item Description” text box. The guest is able to stack these filters to further refine their results.
 
-Account creation:
+# Account creation:
 From the home page a user can select the create account link or click login and select the create account link to create an inventory manager account. Proper implementation of this application would require the user to submit for an account then have their access verified before account creation. The current implementation creates the account once the form is submitted. Once submitted the user will be navigated to the login screen and can enter the created credentials to login. The password is stored in the database as a hash.
 
-Inventory manager home screen:
+# Inventory manager home screen:
 The inventory manager home screen looks very similar to the guest screen with a few differences. First you will notice the table is pre-filtered by the logged in user. The inventory manager also has access to the add and delete item buttons. As the user filters the results there will be a button at the top of the screen to return to the initial filtered state.
 
-Adding new items:
+# Adding new items:
 The inventory manager can add new items by clicking the “Add Item” button and filling out the add item form. The form contains some basic validation to ensure the fields are not left blank. The manager can click cancel to return to the list if they do not with to create a new item or click save to create the item. After saving the user is navigated back to the filtered list view and can see their newly created part.
 
-Viewing and updating an items values:
+# Viewing and updating an items values:
 An inventory manager has access to update an item’s values by clicking on an item within the table. This opens the detail item view. Inside the window the user will see all the items' properties. The manager can then click the edit item button to modify the properties. The user will then select save to commit the changes and will be sent back to the view only detail page. They can then click the return to list button to see their changes reflected in the table view.
 
-Deleting an item:
+# Deleting an item:
 The inventory manager has access to delete an item from the table view by clicking the delete item button. After deleting the item the item is removed from the table view.
 
 # Project setup
 Create a postgres database name imsdb to be used later in the setup. This database must exist within your machine's local storage.
 
-This project is setup to run with docker on the following ports:
-    app-imd-db: 5432
-    app-ims-api: 3001
+# This project is setup to run with docker on the following ports:
+    app-imd-db: 5432 
+    app-ims-api: 3001 
     app-ims-frontend: 3000
 
-Docker-compose setup:
+# Docker-compose setup:
     This project contains a basic docker compose file that will need to be configured as follows.
         (line 9)
             - POSTGRES_USER={replace with username}
@@ -40,14 +40,14 @@ Docker-compose setup:
         (line 26)
             - DB_CONN_STRING=”postgres://{replace with your username}:{your postgres password}@app-ims-db:5432/imsdb
 
-Run project:
+# Run project:
     After configuration enter the command below withing the root folder:
         docker-compose up
 
-Frontend access:
+# Frontend access:
     You can access the front end by navigating to http://localhost:3000 withing a web browser
 
-Api access and routes:
+# Api access and routes:
     You can access the api by navigating to http://localhost:3001 you have access to the routes below
         GET:
             /
